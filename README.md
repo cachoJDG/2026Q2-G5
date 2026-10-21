@@ -153,11 +153,19 @@ Volver a entrar con el mismo nombre de jugador permite recuperar los datos guard
 ### 5. Acceder al panel de monitoreo
 
 Presionar **📊** en el lobby. El usuario predeterminado es **`admin`**.
-Para obtener la contraseña, abrir la consola AWS del Lab en **`us-east-1`**,
-ir a **Secrets Manager**, seleccionar **`<project_name>-metrics-password`**
-y presionar **Secret value → Retrieve secret value**. Copiar el valor al campo
-**Contraseña** e ingresar. **Salir** cierra la sesión y **Volver al juego**
-regresa al cliente.
+Para obtener la contraseña:
+
+- **Desde la consola AWS:** con el Lab iniciado, abrir **Secrets Manager** en
+  **`us-east-1`**, seleccionar **`<project_name>-metrics-password`** y presionar
+  **Secret value → Retrieve secret value**.
+- **Desde la terminal:** con el Lab iniciado y las credenciales en `~/.aws/credentials`, ejecutar:
+
+  ```bash
+  aws secretsmanager get-secret-value --secret-id elastic-worlds-metrics-password --query SecretString --output text --region us-east-1
+  ```
+
+Copiar el valor al campo **Contraseña** e ingresar. **Salir** cierra la sesión
+y **Volver al juego** regresa al cliente.
 
 ![Formulario de acceso al panel de métricas](.docs/capturas/05-acceso-metricas.png)
 
