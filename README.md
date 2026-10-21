@@ -33,8 +33,6 @@ cargar los siguientes valores, sin comillas ni la línea `export`:
 | `AWS_SECRET_ACCESS_KEY` | `aws_secret_access_key` |
 | `AWS_SESSION_TOKEN` | `aws_session_token` |
 
-![Secrets AWS configurados en GitHub](.docs/capturas/11-github-secrets-configurados.png)
-
 Cuando expire la sesión, renovar los tres secrets. Las contraseñas de la base
 de datos y del dashboard se generan en Secrets Manager.
 
@@ -44,8 +42,6 @@ El bucket de estado `elastic-worlds-tfstate-<account-id>` se prepara automática
 ### 3. Elegir el workflow
 
 Abrir la pestaña **Actions**; en un fork, habilitarla si GitHub lo solicita.
-
-![Workflows disponibles en Actions](.docs/capturas/09-github-workflows.png)
 
 | Workflow | Cómo se inicia | Qué hace |
 | --- | --- | --- |
@@ -82,15 +78,10 @@ El backend y los buckets de datos/artefactos se conservan por defecto.
 
 ## Cómo jugar y usar el monitoreo
 
-Las capturas son del despliegue del **21/10/2026**, con World Hosts EC2.
-La versión actual usa Fargate, por lo que la sección de hosts puede diferir.
-
 ### 1. Abrir el juego
 
 Abrir `client_website_url`, escribir un nombre en **Nombre del Jugador** y
 consultar **Mundos Disponibles**. **🔄** actualiza la lista y **📊** abre el monitoreo.
-
-![Lobby del juego](.docs/capturas/01-lobby.png)
 
 Usar la URL HTTP del website de S3 que devuelve Terraform para evitar bloqueos
 por contenido mixto con la API HTTP.
@@ -106,8 +97,6 @@ Presionar **➕ Crear Mundo** y completar el formulario, o elegir un mundo exist
 | Bioma | Bosque Templado, Desierto Árido o Tundra Helada |
 | Bots Autónomos Iniciales | Cantidad de NPC |
 
-![Formulario de creación de mundo](.docs/capturas/02-crear-mundo.png)
-
 Presionar **Crear y Aprovisionar** y esperar a que el mundo aparezca en la lista.
 Si figura **Iniciando**, refrescar la lista hasta que esté disponible.
 
@@ -116,13 +105,9 @@ Si figura **Iniciando**, refrescar la lista hasta que esté disponible.
 Seleccionar un mundo y presionar **🚀 Entrar al Mundo**.
 Los mundos **Inactivos** se inician bajo demanda; la primera conexión puede tardar.
 
-![Mundo seleccionado para entrar](.docs/capturas/03-mundo-listo.png)
-
 ### 4. Jugar y salir de la partida
 
 La interfaz muestra vida, inventario, coordenadas y jugadores conectados.
-
-![Partida con jugador, NPC, inventario y chat](.docs/capturas/04-juego.png)
 
 | Control | Acción |
 | --- | --- |
@@ -146,13 +131,9 @@ Presionar **📊** en el lobby e ingresar con las
 [credenciales del dashboard](#5-abrir-la-aplicación).
 **Salir** cierra la sesión y **Volver al juego** regresa al cliente.
 
-![Formulario de acceso al panel de métricas](.docs/capturas/05-acceso-metricas.png)
-
 ### 6. Leer las métricas
 
 El panel se actualiza cada cinco segundos. **Refrescar** solicita una actualización manual.
-
-![Dashboard con jugadores e historial de métricas](.docs/capturas/06-dashboard.png)
 
 | Sección | Qué muestra |
 | --- | --- |
@@ -170,8 +151,6 @@ siguientes muestras del pipeline.
 
 **Flota de hosts** muestra capacidad, ocupación y costo estimado.
 Las recomendaciones comparan el uso con los recursos asignados.
-
-![Flota y recomendaciones de aprovisionamiento](.docs/capturas/07-hosts-y-costos.png)
 
 Los importes son estimaciones de la aplicación, no la factura total de AWS.
 Los servicios compartidos pueden generar cargos aunque los mundos estén inactivos.
@@ -268,7 +247,7 @@ externos se fijan en los bloques `module`; las de providers, en
 
 ## Variables y outputs
 
-La configuración se define en [`variables.tf`](infra/variables.tf).
+Las variables se declaran en los archivos Terraform de [`infra/`](infra/).
 [`evaluacion.tfvars.example`](infra/environments/evaluacion.tfvars.example)
 ofrece un ejemplo para evaluación.
 
@@ -279,7 +258,9 @@ ofrece un ejemplo para evaluación.
 | `bootstrap_from_source` | Construir imágenes, ZIP y JAR; `true` por defecto |
 | `world_task_image`, `world_task_cpu`, `world_task_memory` | Imagen y recursos de los mundos |
 | `db_multi_az` | Standby RDS; habilitado por defecto |
-| `npc_*`, `metrics_*` | Capacidad de NPC y Metrics |
+| `npc_task_cpu`, `npc_task_memory`, `metrics_task_cpu`, `metrics_task_memory` | CPU y memoria de NPC y Metrics |
+| `npc_min_count`, `npc_max_count`, `metrics_min_count`, `metrics_max_count` | Límites de réplicas de NPC y Metrics |
+| `npc_autoscaling_enabled`, `metrics_autoscaling_enabled` | Habilitar autoscaling |
 | `start_telemetry_application` | Iniciar Flink |
 | `metrics_user`, `metrics_password_version` | Usuario del panel y versión para rotar la contraseña |
 | `cleanup_bootstrap_buckets` | Eliminar buckets al destruir; `false` por defecto |
@@ -309,6 +290,5 @@ ofrece un ejemplo para evaluación.
 │   ├── tests/                 # Tests con providers mockeados
 │   └── probes/                # Pruebas aisladas de permisos y estado
 ├── scripts/                   # Bootstrap, validación y operación
-├── .github/workflows/         # CI y despliegue
-└── .docs/capturas/             # Capturas de la aplicación
+└── .github/workflows/         # CI y despliegue
 ```
