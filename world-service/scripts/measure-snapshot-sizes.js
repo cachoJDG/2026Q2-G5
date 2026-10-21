@@ -4,7 +4,7 @@
 import { gzipSync } from 'node:zlib';
 import { World } from '../src/engine/World.js';
 
-const KIB = 1024;
+const KIB = 1024; 
 const GLACIER_IR_MIN_BYTES = 128 * KIB;
 const BIG_INVENTORY = () => ({ wood: 1e6, stone: 1e6, food: 1e6 });
 
