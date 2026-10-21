@@ -152,9 +152,12 @@ Volver a entrar con el mismo nombre de jugador permite recuperar los datos guard
 
 ### 5. Acceder al panel de monitoreo
 
-Presionar **📊** en el lobby e ingresar con las
-[credenciales del dashboard](#5-abrir-la-aplicación).
-**Salir** cierra la sesión y **Volver al juego** regresa al cliente.
+Presionar **📊** en el lobby. El usuario predeterminado es **`admin`**.
+Para obtener la contraseña, abrir la consola AWS del Lab en **`us-east-1`**,
+ir a **Secrets Manager**, seleccionar **`<project_name>-metrics-password`**
+y presionar **Secret value → Retrieve secret value**. Copiar el valor al campo
+**Contraseña** e ingresar. **Salir** cierra la sesión y **Volver al juego**
+regresa al cliente.
 
 ![Formulario de acceso al panel de métricas](.docs/capturas/05-acceso-metricas.png)
 
