@@ -14,6 +14,8 @@ requiere el Learner Lab activo.
 
 ## Arquitectura
 
+![Arquitectura AWS](.docs/arquitectura/arquitectura-aws.png)
+
 Los diagramas de [arquitectura AWS](.docs/arquitectura/arquitectura-aws.png) y
 [flujos](.docs/arquitectura/flujos.png) describen los recursos y recorridos del sistema.
 Se generan con [`generar_diagramas.py`](.docs/arquitectura/generar_diagramas.py);
@@ -41,6 +43,8 @@ cargar los siguientes valores, sin comillas ni la línea `export`:
 | `AWS_SECRET_ACCESS_KEY` | `aws_secret_access_key` |
 | `AWS_SESSION_TOKEN` | `aws_session_token` |
 
+![Secrets AWS configurados en GitHub](.docs/capturas/11-github-secrets-configurados.png)
+
 Cuando expire la sesión, renovar los tres secrets. Las contraseñas de la base
 de datos y del dashboard se generan en Secrets Manager.
 
@@ -50,6 +54,8 @@ El bucket de estado `elastic-worlds-tfstate-<account-id>` se prepara automática
 ### 3. Elegir el workflow
 
 Abrir la pestaña **Actions**; en un fork, habilitarla si GitHub lo solicita.
+
+![Workflows disponibles en Actions](.docs/capturas/09-github-workflows.png)
 
 | Workflow | Cómo se inicia | Qué hace |
 | --- | --- | --- |
@@ -91,6 +97,8 @@ El backend y los buckets de datos/artefactos se conservan por defecto.
 Abrir `client_website_url`, escribir un nombre en **Nombre del Jugador** y
 consultar **Mundos Disponibles**. **🔄** actualiza la lista y **📊** abre el monitoreo.
 
+![Lobby del juego](.docs/capturas/01-lobby.png)
+
 Usar la URL HTTP del website de S3 que devuelve Terraform para evitar bloqueos
 por contenido mixto con la API HTTP.
 
@@ -105,6 +113,8 @@ Presionar **➕ Crear Mundo** y completar el formulario, o elegir un mundo exist
 | Bioma | Bosque Templado, Desierto Árido o Tundra Helada |
 | Bots Autónomos Iniciales | Cantidad de NPC |
 
+![Formulario de creación de mundo](.docs/capturas/02-crear-mundo.png)
+
 Presionar **Crear y Aprovisionar** y esperar a que el mundo aparezca en la lista.
 Si figura **Iniciando**, refrescar la lista hasta que esté disponible.
 
@@ -113,9 +123,13 @@ Si figura **Iniciando**, refrescar la lista hasta que esté disponible.
 Seleccionar un mundo y presionar **🚀 Entrar al Mundo**.
 Los mundos **Inactivos** se inician bajo demanda; la primera conexión puede tardar.
 
+![Mundo seleccionado para entrar](.docs/capturas/03-mundo-listo.png)
+
 ### 4. Jugar y salir de la partida
 
 La interfaz muestra vida, inventario, coordenadas y jugadores conectados.
+
+![Partida con jugador, NPC, inventario y chat](.docs/capturas/04-juego.png)
 
 | Control | Acción |
 | --- | --- |
@@ -139,9 +153,13 @@ Presionar **📊** en el lobby e ingresar con las
 [credenciales del dashboard](#5-abrir-la-aplicación).
 **Salir** cierra la sesión y **Volver al juego** regresa al cliente.
 
+![Formulario de acceso al panel de métricas](.docs/capturas/05-acceso-metricas.png)
+
 ### 6. Leer las métricas
 
 El panel se actualiza cada cinco segundos. **Refrescar** solicita una actualización manual.
+
+![Dashboard con jugadores e historial de métricas](.docs/capturas/06-dashboard.png)
 
 | Sección | Qué muestra |
 | --- | --- |
@@ -159,6 +177,8 @@ siguientes muestras del pipeline.
 
 **Flota de hosts** muestra capacidad, ocupación y costo estimado.
 Las recomendaciones comparan el uso con los recursos asignados.
+
+![Flota y recomendaciones de aprovisionamiento](.docs/capturas/07-hosts-y-costos.png)
 
 Los importes son estimaciones de la aplicación, no la factura total de AWS.
 Los servicios compartidos pueden generar cargos aunque los mundos estén inactivos.
@@ -299,5 +319,7 @@ ofrece un ejemplo para evaluación.
 │   └── probes/                # Pruebas aisladas de permisos y estado
 ├── scripts/                   # Bootstrap, validación y operación
 ├── .github/workflows/         # CI y despliegue
-└── .docs/arquitectura/         # Diagramas de arquitectura y flujos
+└── .docs/
+    ├── arquitectura/          # Diagramas de arquitectura y flujos
+    └── capturas/              # Capturas de la aplicación
 ```
