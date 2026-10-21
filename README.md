@@ -55,6 +55,8 @@ El bucket de estado `elastic-worlds-tfstate-<account-id>` se prepara automática
 
 Abrir la pestaña **Actions**; en un fork, habilitarla si GitHub lo solicita.
 
+![Workflows del repositorio en GitHub Actions](.docs/capturas/09-github-workflows.png)
+
 | Workflow | Cómo se inicia | Qué hace |
 | --- | --- | --- |
 | [Validate](.github/workflows/validate.yml) | Push, PR o ejecución manual | Verifica formato y configuración de Terraform |
