@@ -8,7 +8,7 @@ const KIB = 1024;
 const GLACIER_IR_MIN_BYTES = 128 * KIB;
 const BIG_INVENTORY = () => ({ wood: 1e6, stone: 1e6, food: 1e6 });
 
-function measure(world) {
+function measure(world) { 
   const json = JSON.stringify(world.getSnapshot());
   return { bytes: Buffer.byteLength(json), gzip: gzipSync(json).length };
 }
