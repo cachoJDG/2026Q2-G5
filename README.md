@@ -55,14 +55,15 @@ El bucket de estado `elastic-worlds-tfstate-<account-id>` se prepara automática
 
 Abrir la pestaña **Actions**; en un fork, habilitarla si GitHub lo solicita.
 
-![Workflows disponibles en Actions](.docs/capturas/09-github-workflows.png)
-
 | Workflow | Cómo se inicia | Qué hace |
 | --- | --- | --- |
-| **Validate** | Push, PR o ejecución manual | Verifica formato y configuración de Terraform |
-| **Plan** | Push a `main` o ejecución manual con `plan` | Calcula los cambios sin aplicarlos |
-| **Deploy** | Ejecución manual con `deploy` | Prepara el backend, valida, planifica y aplica |
-| **Destroy** | Ejecución manual con `destroy` | Destruye el entorno y conserva el backend |
+| [Validate](.github/workflows/validate.yml) | Push, PR o ejecución manual | Verifica formato y configuración de Terraform |
+| [Plan](.github/workflows/plan.yml) | Push a `main` o ejecución manual con `confirm: plan` | Prepara el backend y calcula los cambios sin aplicarlos |
+| [Deploy](.github/workflows/deploy.yml) | Ejecución manual con `confirm: deploy` | Prepara el backend, valida, planifica y aplica |
+| [Destroy](.github/workflows/destroy.yml) | Ejecución manual con `confirm: destroy` | Destruye el entorno y conserva el backend |
+| [Terraform Format](.github/workflows/terraform-format.yml) | PR | Verifica el formato y publica el resultado en el PR |
+| [Terraform Security](.github/workflows/tfsec.yaml) | PR | Analiza la configuración con Trivy y publica un reporte SARIF y un resumen |
+| [Generate terraform docs](.github/workflows/terraform-docs.yml) | PR | Genera los README de los módulos y pushea los cambios a la rama del PR |
 
 ### 4. Ejecutar Deploy
 
