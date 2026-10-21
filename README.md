@@ -3,6 +3,7 @@
 Juego multijugador con mundos persistentes y panel de monitoreo. La infraestructura
 está en [`infra/`](infra/), con cinco módulos propios y módulos externos versionados.
 
+**[Arquitectura](#arquitectura)** ·
 **[Despliegue](#desplegar-en-aws)** ·
 **[Guía de uso](#cómo-jugar-y-usar-el-monitoreo)** ·
 **[Módulos Terraform](#módulos-terraform)** ·
@@ -10,6 +11,13 @@ está en [`infra/`](infra/), con cinco módulos propios y módulos externos vers
 
 La [demo del equipo](http://ewo-evaluacion-client-891200271122.s3-website-us-east-1.amazonaws.com/)
 requiere el Learner Lab activo.
+
+## Arquitectura
+
+Los diagramas de [arquitectura AWS](.docs/arquitectura/arquitectura-aws.png) y
+[flujos](.docs/arquitectura/flujos.png) describen los recursos y recorridos del sistema.
+Se generan con [`generar_diagramas.py`](.docs/arquitectura/generar_diagramas.py);
+requiere Graphviz y `pip install diagrams`.
 
 ## Desplegar en AWS
 
@@ -290,5 +298,6 @@ ofrece un ejemplo para evaluación.
 │   ├── tests/                 # Tests con providers mockeados
 │   └── probes/                # Pruebas aisladas de permisos y estado
 ├── scripts/                   # Bootstrap, validación y operación
-└── .github/workflows/         # CI y despliegue
+├── .github/workflows/         # CI y despliegue
+└── .docs/arquitectura/         # Diagramas de arquitectura y flujos
 ```
